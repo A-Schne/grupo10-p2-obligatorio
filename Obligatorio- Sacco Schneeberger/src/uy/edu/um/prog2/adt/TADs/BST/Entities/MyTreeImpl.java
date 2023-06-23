@@ -45,7 +45,8 @@ public class MyTreeImpl<K extends Comparable<K>, T> implements MyTreeInt<K, T>{
     public void delete(K key) {
         Nodo<K,T> temp = new Nodo<>(key, null);
         Nodo<K,T> nodo = root.getNodo(temp);
-        if(nodo.getLeftChild()==null && nodo.getLeftChild()==null){
+
+        if(nodo.getLeftChild()==null && nodo.getRightChild()==null){
             Nodo<K,T> padre = getPadre(root, nodo);
             if(padre.compareTo(nodo)>0){
                 padre.setLeftChild(null);
@@ -104,18 +105,44 @@ public class MyTreeImpl<K extends Comparable<K>, T> implements MyTreeInt<K, T>{
     }
 
     public Nodo<K,T> getPadre(Nodo<K,T> current,Nodo<K,T> nodoHijo){
-        if(current.getLeftChild().compareTo(nodoHijo) == 0 || current.getRightChild().compareTo(nodoHijo) == 0){
-            return current;
+
+        if(current.getLeftChild()!=null && current.getRightChild() != null) {
+
+            if (current.getLeftChild().compareTo(nodoHijo) == 0 || current.getRightChild().compareTo(nodoHijo) == 0) {
+                return current;
+            }
+            if (current.compareTo(nodoHijo) > 0) {
+                current = current.getLeftChild();
+                return (getPadre(current, nodoHijo));
+            }
+            if (current.compareTo(nodoHijo) < 0) {
+                current = current.getRightChild();
+                return (getPadre(current, nodoHijo));
+            }
         }
-        if(current.compareTo(nodoHijo) > 0){
-            current = current.getLeftChild();
-            return(getPadre(current, nodoHijo));
+
+        if(current.getLeftChild()==null || current.getRightChild()!=null){
+            if (current.getRightChild().compareTo(nodoHijo) == 0) {
+                return current;
+            }
+            if (current.compareTo(nodoHijo) < 0) {
+                current = current.getRightChild();
+                return (getPadre(current, nodoHijo));
+            }
         }
-        if(current.compareTo(nodoHijo) < 0){
-            current = current.getRightChild();
-            return(getPadre(current, nodoHijo));
+
+        if(current.getLeftChild()!=null || current.getRightChild()==null){
+            if(current.getLeftChild().compareTo(nodoHijo) == 0){
+                return current;
+            }
+            if (current.compareTo(nodoHijo) > 0) {
+                current = current.getLeftChild();
+                return (getPadre(current, nodoHijo));
+            }
         }
+
         return null;
+
     }
 
     public int size(){
