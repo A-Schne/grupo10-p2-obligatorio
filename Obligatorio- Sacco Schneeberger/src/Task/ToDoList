@@ -21,3 +21,4 @@ Cada columna de likes significa a cuantos tweets le dio like un usuario / cuando
 Para hacer primera consulta: buscar los pilotos en drivers.txt --> crear un objeto para esta consulta llamada driversPrCon que tenga como atributos al driver, y un counter.
                              Luego procesaremos los textos, filtramos a traves del año y mes los drivers que restan. A cada texto proceso si se menciona el nombre/apellido de
                              piloto y le agrego al counter.
+                             Test
