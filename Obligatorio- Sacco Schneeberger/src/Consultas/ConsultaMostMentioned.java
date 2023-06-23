@@ -60,7 +60,7 @@ public class ConsultaMostMentioned implements CSVTweetReader {
 
             for(int i=0; i<drivers.size(); i++){
 
-                if(text.contains(drivers.get(i).getName()) || text.contains(drivers.get(i).getSurname())){
+                if(/*text.contains(drivers.get(i).getName()) ||*/ text.contains(drivers.get(i).getSurname())){
                     drivers.get(i).setMentions(drivers.get(i).getMentions()+1);
                 }
             }

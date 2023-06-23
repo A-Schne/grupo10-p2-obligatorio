@@ -61,8 +61,10 @@ public class Menu {
         primerConsulta.hacerPrimeraConsulta();
     }
 
-    public static void segundaConsulta(){
+    public static void segundaConsulta() throws Exception {
         ConsultaMostTweetsUser segundaConsulta = new ConsultaMostTweetsUser();
+        CSVLoader loader = new CSVLoader(segundaConsulta);
+        loader.readCSV();
     }
 
 

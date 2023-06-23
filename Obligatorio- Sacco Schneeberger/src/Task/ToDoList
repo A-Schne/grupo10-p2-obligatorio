@@ -23,3 +23,5 @@ Para hacer primera consulta: buscar los pilotos en drivers.txt --> crear un obje
                              piloto y le agrego al counter. (YA HECHO).
 
                              Luego habria que ordenar a los conductores segun su cantidad de menciones, y mostrar los primeros 10 elementos de la lista ordenada.
+
+Para hacer segunda consulta: Crear una lista de usuarios. De la lectura del CSV, fijarse si ya existe el usuario en la lista. Si existe, entonces agregarlo a su lista de tweets.
