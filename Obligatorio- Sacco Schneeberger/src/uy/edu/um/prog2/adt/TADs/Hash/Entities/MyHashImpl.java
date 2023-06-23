@@ -20,18 +20,18 @@ public class MyHashImpl<K, V> implements MyHash<K, V> {
 
     @Override
     public void put(K key, V value) {
-        int position = key.hashCode() % tableSize;
+        int position = Math.abs(key.hashCode() % tableSize);
         MyHashNode<K, V> newNode = new MyHashNode<>(key, value);
 
         if ((table[position] == null) || table[position].isDeleted()) {
             table[position] = newNode;
         } else {
             int attempt = 1;
-            int newPosition = (position + linearCollision(attempt)) % tableSize;
+            int newPosition = Math.abs(position + linearCollision(attempt)) % tableSize;
 
             while (table[newPosition] != null && !table[newPosition].isDeleted() && attempt <= tableSize) {
                 attempt++;
-                newPosition = (position + linearCollision(attempt)) % tableSize;
+                newPosition = Math.abs(position + linearCollision(attempt)) % tableSize;
             }
 
             if (attempt > tableSize) {
@@ -44,7 +44,7 @@ public class MyHashImpl<K, V> implements MyHash<K, V> {
 
     @Override
     public V get(K key) throws NoExiste {
-        int position = key.hashCode() % tableSize;
+        int position = Math.abs(key.hashCode() % tableSize);
         MyHashNode<K, V> node = table[position];
         while (node != null) {
             if (node.getKey().equals(key)) {
@@ -60,7 +60,7 @@ public class MyHashImpl<K, V> implements MyHash<K, V> {
         if (tableSize == 0) {
             throw new HashVacio("El hash está vacío");
         }
-        int position = key.hashCode() % tableSize;
+        int position = Math.abs(key.hashCode() % tableSize);
         MyHashNode<K, V> node = table[position];
 
         if (node != null && node.getKey().equals(key)) {
@@ -81,18 +81,21 @@ public class MyHashImpl<K, V> implements MyHash<K, V> {
 
     @Override
     public boolean containsKey(K key) {
-        int position = key.hashCode() % tableSize;
+        int position = Math.abs(key.hashCode() % tableSize);
+
+
+
         if (table[position] != null && table[position].getKey().equals(key)) {
             return true;
         } else {
             int attempt = 1;
-            int newPosition = (key.hashCode() + linearCollision(attempt)) % tableSize;
+            int newPosition = Math.abs(key.hashCode() + linearCollision(attempt)) % tableSize;
             while (table[newPosition] != null && attempt <= tableSize) {
                 if (table[newPosition].getKey().equals(key)) {
                     return true;
                 }
                 attempt++;
-                newPosition = (key.hashCode() + linearCollision(attempt)) % tableSize;
+                newPosition = Math.abs(key.hashCode() + linearCollision(attempt)) % tableSize;
             }
         }
         return false;
