@@ -17,9 +17,11 @@ public class Menu {
 
     public static void primeraConsulta(){
 
+        Scanner scannerFecha = new Scanner(System.in);
+        System.out.println("¿En que mes quiere buscar? Escribalo de la forma yyyy-mm");
+        String date = scannerFecha.nextLine();
 
 
-        String date = "AAA";
         ConsultaActiveDrivers primerConsulta = new ConsultaActiveDrivers(date);
         CSVLoader a = new CSVLoader(primerConsulta);
         //a.readCSV();
