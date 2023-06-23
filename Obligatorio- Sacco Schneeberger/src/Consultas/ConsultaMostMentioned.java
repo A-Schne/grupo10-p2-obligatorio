@@ -14,9 +14,8 @@ public class ConsultaMostMentioned implements CSVTweetReader {
     private Lista<Driver> drivers;
     private String inputDate;
     private Lista<String[]> textDate;
-    private Lista<Driver> driversOrdenadosResult;
     private MyTreeInt<Integer, Driver> pilotosOrdenados;
-
+    private Lista<Driver> driversOrdenadosResult;
     public ConsultaMostMentioned(Lista<Driver> drivers, String inputDate) {
         this.drivers = drivers;
         this.textDate = new LinkedList<>();
