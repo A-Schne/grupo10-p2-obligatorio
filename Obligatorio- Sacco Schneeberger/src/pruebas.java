@@ -8,6 +8,8 @@ import java.util.Scanner;
 public class pruebas {
     public static void main(String[] args) throws FileNotFoundException {
 
+        int[] prueba = new int[2];
+
         String nombrePiloto = "Agustin Van Schneeberger";
 
         String[] partesDeNombre = nombrePiloto.split("\\s");

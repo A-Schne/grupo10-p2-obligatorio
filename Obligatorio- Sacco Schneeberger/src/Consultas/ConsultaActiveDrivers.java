@@ -3,6 +3,8 @@ package Consultas;
 import CSVResources.CSVTweetReader;
 import Entities.Driver;
 import org.apache.commons.csv.CSVRecord;
+import uy.edu.um.prog2.adt.TADs.BST.Entities.MyTreeImpl;
+import uy.edu.um.prog2.adt.TADs.BST.Entities.MyTreeInt;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.LinkedList;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.Lista;
 
@@ -40,8 +42,19 @@ public class ConsultaActiveDrivers implements CSVTweetReader {
         }
     }
 
+    public Lista<Driver> orderDriverByMentions(Lista<Driver> pilotos) throws Exception {
 
+        Driver dummyDriver = new Driver(null,null,null);
+        MyTreeInt<Integer, Driver> pilotosOrdenados = new MyTreeImpl<>();
 
+        pilotosOrdenados.insert(dummyDriver.getMentions(), dummyDriver);
+
+        for(int i=0; i<pilotos.size(); i++){
+            pilotosOrdenados.insert(pilotos.get(i).getMentions(), pilotos.get(i));
+        }
+        //No se como acceder a los 10 mayores mencionados en este arbol
+        return null;
+    }
 
 
 

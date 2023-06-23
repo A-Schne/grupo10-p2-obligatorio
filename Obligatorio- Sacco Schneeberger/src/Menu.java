@@ -55,6 +55,7 @@ public class Menu {
         }
 
         ConsultaActiveDrivers primerConsulta = new ConsultaActiveDrivers(pilotosTemp, date);
+
         CSVLoader a = new CSVLoader(primerConsulta);
     }
 }
