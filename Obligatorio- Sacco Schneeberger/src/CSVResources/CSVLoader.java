@@ -17,7 +17,7 @@ public class CSVLoader{
         this.tweetReader = tweetReader;
     }
 
-    public void readCSV() throws IOException {
+    public void readCSV() throws Exception {
 
         String csvFile = "src/CSVResources/f1_dataset_test.csv";
 
