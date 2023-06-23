@@ -10,14 +10,28 @@ import java.util.Scanner;
 
 public class Menu {
     public static void main(String[] args) throws Exception {
-        Scanner menu = new Scanner(System.in);
-        System.out.println("Elija que consulta hacer:\n1.Listar los 10 pilotos activos mas mencionados en cierto mes \n2.Top 15 usuarios con mas tweets \n3.Cantidad de hashtags distintos para un dia dado \n4.Hashtag mas usado en un dia \n5.Top 7 cuentas con mas favoritos \n6.Cantidad de tweets con una palabra\n\nRespuesta: ");
-        if (menu.nextInt()==1){
-            primeraConsulta();
-        }
-        if (menu.nextInt()==2){
-            segundaConsulta();
-        }
+        int menu;
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("\n\nElija que consulta hacer:\n1.Listar los 10 pilotos activos mas mencionados en cierto mes \n2.Top 15 usuarios con mas tweets \n3.Cantidad de hashtags distintos para un dia dado \n4.Hashtag mas usado en un dia \n5.Top 7 cuentas con mas favoritos \n6.Cantidad de tweets con una palabra\n\nRespuesta: ");
+            menu = scanner.nextInt();
+            switch (menu) {
+
+                case 1:
+                    primeraConsulta();
+                    break;
+                case 2:
+                    segundaConsulta();
+                    break;
+
+                default:
+                    System.out.println("Numero ingresado invalido, porfavor pruebe de nuevo.");
+
+
+            }
+
+        } while(menu!=4);
+
     }
 
     public static void primeraConsulta() throws Exception {
@@ -62,9 +76,11 @@ public class Menu {
     }
 
     public static void segundaConsulta() throws Exception {
+
         ConsultaMostTweetsUser segundaConsulta = new ConsultaMostTweetsUser();
         CSVLoader loader = new CSVLoader(segundaConsulta);
         loader.readCSV();
+        segundaConsulta.prueba();
     }
 
 

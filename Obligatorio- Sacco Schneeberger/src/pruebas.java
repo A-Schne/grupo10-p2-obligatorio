@@ -1,3 +1,6 @@
+import Entities.User;
+import uy.edu.um.prog2.adt.TADs.Hash.Entities.MyHash;
+import uy.edu.um.prog2.adt.TADs.Hash.Entities.MyHashImpl;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.LinkedList;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.Lista;
 
@@ -8,26 +11,14 @@ import java.util.Scanner;
 public class pruebas {
     public static void main(String[] args) throws FileNotFoundException {
 
-        int[] prueba = new int[2];
+        MyHash<String, User> userPrueba = new MyHashImpl<>();
 
-        String nombrePiloto = "Agustin Van Schneeberger";
+        userPrueba.setTableSize(10);
 
-        String[] partesDeNombre = nombrePiloto.split("\\s");
+        User user = new User("Hola");
 
-        String nombre = null;
-        String apellido = null;
+        userPrueba.put("Hola", user);
+        System.out.println(userPrueba.containsKey("BLa"));
 
-        if(partesDeNombre.length == 2){
-            nombre = partesDeNombre[0];
-            apellido = partesDeNombre[1];
-        }
-
-        if(partesDeNombre.length == 3){
-            nombre = partesDeNombre[0];
-            apellido = partesDeNombre[1]+" "+partesDeNombre[2];
-        }
-
-        System.out.println(nombre);
-        System.out.println(apellido);
     }
 }

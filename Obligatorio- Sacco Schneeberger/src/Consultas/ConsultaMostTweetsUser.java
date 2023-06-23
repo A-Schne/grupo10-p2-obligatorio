@@ -4,14 +4,41 @@ import CSVResources.CSVTweetReader;
 import Entities.User;
 import org.apache.commons.csv.CSVRecord;
 import uy.edu.um.prog2.adt.TADs.Hash.Entities.MyHash;
+import uy.edu.um.prog2.adt.TADs.Hash.Entities.MyHashImpl;
+import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.LinkedList;
+import uy.edu.um.prog2.adt.TADs.Linked_List.Exceptions.NoExiste;
 
 public class ConsultaMostTweetsUser implements CSVTweetReader {
 
-    private MyHash<Integer, User> users;
+    private MyHash<String, User> users;
+    private LinkedList<String> usernames;
 
+    public ConsultaMostTweetsUser() {
+        this.users = new MyHashImpl<>();
+        users.setTableSize(1000000);
+        this.usernames = new LinkedList<>();
+    }
 
     @Override
     public void execute(CSVRecord record) throws Exception {
 
+        String user_name = record.get("user_name");
+        System.out.println(user_name);
+        if(users.containsKey(user_name)){
+            User tempUser = users.get(user_name);
+            tempUser.setNumberOfTweets(tempUser.getNumberOfTweets()+1);
+        }
+        else{
+            User nuevoUser = new User(user_name);
+            usernames.add(user_name);
+            users.put(user_name, nuevoUser);
+            nuevoUser.setNumberOfTweets(nuevoUser.getNumberOfTweets()+1);
+        }
+    }
+
+    public void prueba() throws NoExiste, uy.edu.um.prog2.adt.TADs.Hash.Exceptions.NoExiste {
+        for(int i=0; i< usernames.size(); i++) {
+            System.out.println(this.users.get(usernames.get(0)).getNumberOfTweets());
+        }
     }
 }

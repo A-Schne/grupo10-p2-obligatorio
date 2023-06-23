@@ -16,6 +16,8 @@ public interface MyHash<K, V> {
 
     int tableSize();
 
+    public void setTableSize(int size);
+
     public boolean isEmpty();
 
     public void clear();
