@@ -1,4 +1,5 @@
 import CSVResources.CSVLoader;
+import Consultas.ConsultaMostHashtagUses;
 import Consultas.ConsultaMostMentioned;
 import Consultas.ConsultaMostTweetsUser;
 import Entities.Driver;
@@ -23,7 +24,8 @@ public class Menu {
                 case 2:
                     segundaConsulta();
                     break;
-
+                case 3:
+                    terceraConsulta();
                 default:
                     System.out.println("Numero ingresado invalido, porfavor pruebe de nuevo.");
 
@@ -83,5 +85,11 @@ public class Menu {
         segundaConsulta.prueba();
     }
 
+    public static void terceraConsulta() throws Exception {
 
+        ConsultaMostHashtagUses terceraConsulta = new ConsultaMostHashtagUses();
+        CSVLoader loader = new CSVLoader(terceraConsulta);
+        loader.readCSV();
+
+    }
 }

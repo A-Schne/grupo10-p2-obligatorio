@@ -26,3 +26,7 @@ Para hacer primera consulta: buscar los pilotos en drivers.txt --> crear un obje
 
 Para hacer segunda consulta: Crear una lista de usuarios. De la lectura del CSV, fijarse si ya existe el usuario en la lista a traves de user_id. Si existe, entonces agregarlo a su lista de tweets.
                              Si no existe, crear el user y agregarlo a lista de usuarios. Luego ordenarlos por su cantidad de tweets y mostrar los primeros 15 de la lista ordenada.
+
+Para hacer tercera consulta: Crear una lista de hashtag, quizas linkedlist. De la lectura del CSV, sacar los hashtags. Cada vez que aparecen, ver si estan en mi lista de hashtags. Si
+                             estan, añadirles 1 a su cantiad de veces usado. Si no esta, crearlo, añadirlo a la lista y sumarles 1 a su cantidad de veces usado. Luego ordenar
+                             en base a la cantidad de veces usado, usando un arbol.
