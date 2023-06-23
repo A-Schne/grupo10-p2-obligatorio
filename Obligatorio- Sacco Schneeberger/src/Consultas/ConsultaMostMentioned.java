@@ -9,7 +9,7 @@ import uy.edu.um.prog2.adt.TADs.BST.Entities.Nodo;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.LinkedList;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.Lista;
 
-public class ConsultaActiveDrivers implements CSVTweetReader {
+public class ConsultaMostMentioned implements CSVTweetReader {
 
     private Lista<Driver> drivers;
     private String inputDate;
@@ -17,7 +17,7 @@ public class ConsultaActiveDrivers implements CSVTweetReader {
     private Lista<Driver> driversOrdenadosResult;
     private MyTreeInt<Integer, Driver> pilotosOrdenados;
 
-    public ConsultaActiveDrivers(Lista<Driver> drivers, String inputDate) {
+    public ConsultaMostMentioned(Lista<Driver> drivers, String inputDate) {
         this.drivers = drivers;
         this.textDate = new LinkedList<>();
         this.inputDate = inputDate;
