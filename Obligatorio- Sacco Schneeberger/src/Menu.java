@@ -5,6 +5,7 @@ import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.LinkedList;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.Lista;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
@@ -125,12 +126,15 @@ public class Menu {
         quintaConsulta.hacerQuintaConsulta();
     }
 
-    public static void sextaConsulta(){
+    public static void sextaConsulta() throws Exception {
         Scanner scannerTexto = new Scanner(System.in);
         System.out.println("¿Escriba una palabra o frase con la que quiera hacer la consulta: ");
-        String date = scannerTexto.nextLine().toLowerCase();
+        String texto = scannerTexto.nextLine().toLowerCase();
 
-
+        ConsultaTextInTweets sextaConsulta = new ConsultaTextInTweets(texto);
+        CSVLoader loader = new CSVLoader(sextaConsulta);
+        loader.readCSV();
+        sextaConsulta.hacerSextaConsulta();
     }
 
 }

@@ -30,11 +30,9 @@ public class ConsultaUserWithMostFavs implements CSVTweetReader {
     @Override
     public void execute(CSVRecord record) throws Exception {
 
-
         try {
             String name = record.get("user_name");
             String favsString = record.get("user_favourites").replace(".0", "");
-
 
             int favs = Integer.parseInt(favsString);
             if(users.contains(name)){
