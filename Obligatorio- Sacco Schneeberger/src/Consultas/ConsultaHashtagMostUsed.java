@@ -60,7 +60,6 @@ public class ConsultaHashtagMostUsed implements CSVTweetReader {
     public void hacerCuartaConsulta() throws Exception {
         Hashtag dummyHashtag = new Hashtag("Hashtag con 0 usos");
         hashtagsOrdenados.insert(0, dummyHashtag);
-        System.out.println("Hola");
         for(int i=0; i<nombresHashtags.size(); i++){
             hashtagsOrdenados.insert(listaHashtagsRegistrados.findObject(nombresHashtags.get(i)).getNumTwitted(),listaHashtagsRegistrados.findObject(nombresHashtags.get(i))) ;
         }
