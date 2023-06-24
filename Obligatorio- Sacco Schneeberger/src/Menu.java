@@ -31,6 +31,9 @@ public class Menu {
                 case 5:
                     quintaConsulta();
                     break;
+                case 6:
+                    sextaConsulta();
+                    break;
                 default:
                     System.out.println("Numero ingresado invalido, porfavor pruebe de nuevo.");
 
@@ -121,4 +124,13 @@ public class Menu {
         loader.readCSV();
         quintaConsulta.hacerQuintaConsulta();
     }
+
+    public static void sextaConsulta(){
+        Scanner scannerTexto = new Scanner(System.in);
+        System.out.println("¿Escriba una palabra o frase con la que quiera hacer la consulta: ");
+        String date = scannerTexto.nextLine().toLowerCase();
+
+
+    }
+
 }
