@@ -34,7 +34,6 @@ public class Menu {
                 default:
                     System.out.println("Numero ingresado invalido, porfavor pruebe de nuevo.");
 
-
             }
 
         } while(menu!=7);
