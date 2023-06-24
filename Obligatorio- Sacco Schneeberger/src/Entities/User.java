@@ -8,11 +8,13 @@ public class User {
     private int numberOfTweets;
 
     private int totalNumOfFavs;
+    private boolean isVerified;
 
     public User(String name) {
         this.id = id;
         this.name = name;
         this.numberOfTweets = 0;
+        this.isVerified = false;
     }
 
     public long getId() {
@@ -42,8 +44,15 @@ public class User {
     public int getTotalNumOfFavs() {
         return totalNumOfFavs;
     }
-
     public void setTotalNumOfFavs(int totalNumOfFavs) {
         this.totalNumOfFavs = totalNumOfFavs;
+    }
+
+    public boolean isVerified() {
+        return isVerified;
+    }
+
+    public void setVerified(boolean verified) {
+        isVerified = verified;
     }
 }

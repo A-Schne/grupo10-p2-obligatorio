@@ -29,12 +29,16 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
     public void execute(CSVRecord record) throws Exception {
 
         String user_name = record.get("user_name");
+        String isVerified = record.get("user_verified").toLowerCase();
+        boolean isVerifiedBool = Boolean.parseBoolean(isVerified);
         if(users.contains(user_name)){
             User tempUser = users.findObject(user_name);
             tempUser.setNumberOfTweets(tempUser.getNumberOfTweets()+1);
         }
         else{
             User nuevoUser = new User(user_name);
+            if(isVerifiedBool)
+                nuevoUser.setVerified(true);
             usernames.add(user_name);
             users.put(user_name, nuevoUser);
             nuevoUser.setNumberOfTweets(1);
@@ -69,7 +73,11 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
         orderUsers();
         System.out.println("Los usuarios con mas tweets son: ");
         for(int i=0; i<15; i++){
-            System.out.println((i+1) + ". " + userFinal.get(i).getName() + " con " + userFinal.get(i).getNumberOfTweets() + " tweets.");
+            if(userFinal.get(i).isVerified())
+                System.out.println((i+1) + ". " + userFinal.get(i).getName() + "(\u2713)" + " con " + userFinal.get(i).getNumberOfTweets() + " tweets.");
+            else{
+                System.out.println((i+1) + ". " + userFinal.get(i).getName() + " con " + userFinal.get(i).getNumberOfTweets() + " tweets.");
+            }
         }
     }
 }
