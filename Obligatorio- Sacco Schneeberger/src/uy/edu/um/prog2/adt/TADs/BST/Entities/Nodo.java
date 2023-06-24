@@ -95,7 +95,18 @@ public class Nodo<K extends Comparable<K>, T> {
                 this.getLeftChild().add(key, data);
             }
         }
-        if (this.compareTo(temp) <= 0) {
+        if(this.compareTo(temp) == 0){
+            if(this.getRightChild()==null){
+                this.setRightChild(temp);
+            }
+            else if (this.getLeftChild()==null) {
+                this.setLeftChild(temp);
+            }
+            else{
+                this.getRightChild().add(key, data);
+            }
+        }
+        if (this.compareTo(temp) < 0) {
             if (this.getRightChild() == null) {
                 this.setRightChild(temp);
             } else {

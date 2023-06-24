@@ -3,6 +3,9 @@ package Consultas;
 import CSVResources.CSVTweetReader;
 import Entities.User;
 import org.apache.commons.csv.CSVRecord;
+import uy.edu.um.prog2.adt.TADs.BST.Entities.MyTreeImpl;
+import uy.edu.um.prog2.adt.TADs.BST.Entities.MyTreeInt;
+import uy.edu.um.prog2.adt.TADs.BST.Entities.Nodo;
 import uy.edu.um.prog2.adt.TADs.Hash.Entities.MyHash;
 import uy.edu.um.prog2.adt.TADs.Hash.Entities.MyHashImpl;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.LinkedList;
@@ -12,11 +15,14 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
 
     private MyHash<String, User> users;
     private LinkedList<String> usernames;
-    private int counter;
+    private MyTreeInt<Integer, User> usersTree;
+    private LinkedList<User> userFinal;
+
     public ConsultaMostTweetsUser() {
         this.users = new MyHashImpl<>(250000);
         this.usernames = new LinkedList<>();
-        this.counter = 0;
+        this.usersTree = new MyTreeImpl<>();
+        this.userFinal = new LinkedList<>();
     }
 
     @Override
@@ -31,15 +37,39 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
             User nuevoUser = new User(user_name);
             usernames.add(user_name);
             users.put(user_name, nuevoUser);
-            counter++;
-            System.out.println(counter);
-            nuevoUser.setNumberOfTweets(nuevoUser.getNumberOfTweets()+1);
+            nuevoUser.setNumberOfTweets(1);
         }
     }
 
+    public void orderUsers() throws NoExiste {
+        User dummyUser = new User("prueba");
+        usersTree.insert(1, dummyUser);
+        for(int i=0; i< usernames.size(); i++){
+            User tempUser = users.findObject(usernames.get(i));
+            usersTree.insert(tempUser.getNumberOfTweets(), tempUser);
+        }
+
+        for(int i=0; i<usernames.size(); i++){
+            getMostTweets(usersTree.getRoot());
+        }
+
+    }
+
+    public void getMostTweets(Nodo<Integer, User> nodoUser){
+        if(nodoUser.getRightChild()!=null){
+            getMostTweets(nodoUser.getRightChild());
+        }
+        else{
+            userFinal.add(nodoUser.getData());
+            usersTree.delete(nodoUser.getKey());
+        }
+
+    }
     public void prueba() throws NoExiste {
-        for(int i=0; i< usernames.size(); i++) {
-            System.out.println(this.users.findObject(usernames.get(0)).getNumberOfTweets());
+        orderUsers();
+        System.out.println("Los usuarios con mas tweets son: ");
+        for(int i=0; i<15; i++){
+            System.out.println((i+1) + ". " + userFinal.get(i).getName() + " con " + userFinal.get(i).getNumberOfTweets() + " tweets.");
         }
     }
 }

@@ -26,7 +26,7 @@ public class MyHashImpl<K, V> implements MyHash<K, V> {
             int newPosition = Math.abs((key.hashCode()% tableHash.length + linearColision(attempt)));
             while (tableHash[newPosition] != null && !tableHash[newPosition].isDeleted() && attempt <= size) {
                 attempt++;
-                newPosition = (key.hashCode() + linearColision(attempt));
+                newPosition = Math.abs((key.hashCode()% tableHash.length + linearColision(attempt)));
             }
             if (attempt > capacity) {
                 throw new ErrorEncontrado("El hashtable es mas chico");
@@ -109,7 +109,7 @@ public class MyHashImpl<K, V> implements MyHash<K, V> {
                     return (V) tableHash[newPosition].getData();
                 }
                 attemp++;
-                newPosition = (key.hashCode() + linearColision(attemp));
+                newPosition = Math.abs((key.hashCode()% tableHash.length + linearColision(attemp)));
             }
             return null;
         }
