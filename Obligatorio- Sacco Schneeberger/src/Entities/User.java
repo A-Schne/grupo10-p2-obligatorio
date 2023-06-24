@@ -7,6 +7,8 @@ public class User {
     private String name;
     private int numberOfTweets;
 
+    private int totalNumOfFavs;
+
     public User(String name) {
         this.id = id;
         this.name = name;
@@ -35,5 +37,13 @@ public class User {
 
     public void setNumberOfTweets(int numberOfTweets) {
         this.numberOfTweets = numberOfTweets;
+    }
+
+    public int getTotalNumOfFavs() {
+        return totalNumOfFavs;
+    }
+
+    public void setTotalNumOfFavs(int totalNumOfFavs) {
+        this.totalNumOfFavs = totalNumOfFavs;
     }
 }

@@ -1,8 +1,5 @@
 import CSVResources.CSVLoader;
-import Consultas.ConsultaAmountOfTweets;
-import Consultas.ConsultaHashtagMostUsed;
-import Consultas.ConsultaMostMentioned;
-import Consultas.ConsultaMostTweetsUser;
+import Consultas.*;
 import Entities.Driver;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.LinkedList;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.Lista;
@@ -30,6 +27,9 @@ public class Menu {
                     break;
                 case 4:
                     cuartaConsulta();
+                    break;
+                case 5:
+                    quintaConsulta();
                     break;
                 default:
                     System.out.println("Numero ingresado invalido, porfavor pruebe de nuevo.");
@@ -112,5 +112,13 @@ public class Menu {
         CSVLoader loader = new CSVLoader(cuartaConsulta);
         loader.readCSV();
         cuartaConsulta.hacerCuartaConsulta();
+    }
+
+    public static void quintaConsulta() throws Exception {
+
+        ConsultaUserWithMostFavs quintaConsulta = new ConsultaUserWithMostFavs();
+        CSVLoader loader = new CSVLoader(quintaConsulta);
+        loader.readCSV();
+        quintaConsulta.hacerQuintaConsulta();
     }
 }
