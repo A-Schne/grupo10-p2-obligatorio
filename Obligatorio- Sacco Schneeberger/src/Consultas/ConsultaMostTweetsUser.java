@@ -14,8 +14,7 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
     private LinkedList<String> usernames;
     private int counter;
     public ConsultaMostTweetsUser() {
-        this.users = new MyHashImpl<>();
-        users.setTableSize(250000);
+        this.users = new MyHashImpl<>(250000);
         this.usernames = new LinkedList<>();
         this.counter = 0;
     }
@@ -24,8 +23,8 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
     public void execute(CSVRecord record) throws Exception {
 
         String user_name = record.get("user_name");
-        if(users.containsKey(user_name)){
-            User tempUser = users.get(user_name);
+        if(users.contains(user_name)){
+            User tempUser = users.findObject(user_name);
             tempUser.setNumberOfTweets(tempUser.getNumberOfTweets()+1);
         }
         else{
@@ -38,9 +37,9 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
         }
     }
 
-    public void prueba() throws NoExiste, uy.edu.um.prog2.adt.TADs.Hash.Exceptions.NoExiste {
+    public void prueba() throws NoExiste {
         for(int i=0; i< usernames.size(); i++) {
-            System.out.println(this.users.get(usernames.get(0)).getNumberOfTweets());
+            System.out.println(this.users.findObject(usernames.get(0)).getNumberOfTweets());
         }
     }
 }

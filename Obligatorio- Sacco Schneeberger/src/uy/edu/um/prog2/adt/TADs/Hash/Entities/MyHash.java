@@ -1,26 +1,16 @@
 package uy.edu.um.prog2.adt.TADs.Hash.Entities;
 
-import uy.edu.um.prog2.adt.TADs.Hash.Exceptions.HashVacio;
-import uy.edu.um.prog2.adt.TADs.Hash.Exceptions.NoExiste;
+import uy.edu.um.prog2.adt.TADs.Hash.Exceptions.ErrorEncontrado;
 
 public interface MyHash<K, V> {
-    void put(K key, V value);
 
-    V get(K key) throws NoExiste;
+    public void put(K key, V value) throws ErrorEncontrado;
 
-    public void remove(K key) throws NoExiste, HashVacio;
+    public boolean contains(K key);
 
-    public boolean containsKey(K key);
+    public void remove(K key) throws ErrorEncontrado;
 
-    public void printTable();
+    int size();
 
-    int tableSize();
-
-    public void setTableSize(int size);
-
-    public boolean isEmpty();
-
-    public void clear();
-
+    public V findObject(K key);
 }
-

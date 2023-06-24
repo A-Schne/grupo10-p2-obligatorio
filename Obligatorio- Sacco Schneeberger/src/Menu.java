@@ -1,5 +1,5 @@
 import CSVResources.CSVLoader;
-import Consultas.ConsultaMostHashtagUses;
+import Consultas.ConsultaHashtagMostUsed;
 import Consultas.ConsultaMostMentioned;
 import Consultas.ConsultaMostTweetsUser;
 import Entities.Driver;
@@ -26,13 +26,15 @@ public class Menu {
                     break;
                 case 3:
                     terceraConsulta();
+                case 4:
+                    cuartaConsulta();
                 default:
                     System.out.println("Numero ingresado invalido, porfavor pruebe de nuevo.");
 
 
             }
 
-        } while(menu!=4);
+        } while(menu!=7);
 
     }
 
@@ -85,11 +87,19 @@ public class Menu {
         segundaConsulta.prueba();
     }
 
-    public static void terceraConsulta() throws Exception {
+    public static void terceraConsulta(){
 
-        ConsultaMostHashtagUses terceraConsulta = new ConsultaMostHashtagUses();
-        CSVLoader loader = new CSVLoader(terceraConsulta);
+    }
+
+    public static void cuartaConsulta() throws Exception {
+
+        Scanner scannerFecha = new Scanner(System.in);
+        System.out.println("¿En que dia quiere buscar? Escribalo de la forma yyyy-mm-dd");
+        String date = scannerFecha.nextLine();
+
+        ConsultaHashtagMostUsed cuartaConsulta = new ConsultaHashtagMostUsed(date);
+        CSVLoader loader = new CSVLoader(cuartaConsulta);
         loader.readCSV();
-
+        cuartaConsulta.hacerCuartaConsulta();
     }
 }

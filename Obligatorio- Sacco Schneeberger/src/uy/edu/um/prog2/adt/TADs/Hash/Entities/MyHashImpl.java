@@ -1,144 +1,122 @@
 package uy.edu.um.prog2.adt.TADs.Hash.Entities;
 
-import uy.edu.um.prog2.adt.TADs.Hash.Exceptions.HashVacio;
-import uy.edu.um.prog2.adt.TADs.Hash.Exceptions.NoExiste;
+import uy.edu.um.prog2.adt.TADs.Hash.Exceptions.ErrorEncontrado;
 
 public class MyHashImpl<K, V> implements MyHash<K, V> {
-    private MyHashNode<K, V>[] table;
-    private int tableSize;
-    public MyHashImpl() {
+    private NodoHash[] tableHash;
+    private int capacity;
+    private int size;
+
+    public MyHashImpl(int capacity) {
+        this.tableHash = new NodoHash[capacity];
+        this.capacity = capacity;
+        int size = 0;
     }
 
-    private int linearCollision(int attempt) {
+    @Override
+    public void put(K key, V value) throws ErrorEncontrado {
+        int position = Math.abs(key.hashCode()) % tableHash.length; //tamano de la tabla
+        NodoHash<K,V> temp = new NodoHash<>(key, value);
+
+        if (tableHash[position] == null || tableHash[position].isDeleted()) {
+            tableHash[position] = temp;
+            size++;
+        } else {
+            int attempt = 1;
+            int newPosition = Math.abs((key.hashCode()% tableHash.length + linearColision(attempt)));
+            while (tableHash[newPosition] != null && !tableHash[newPosition].isDeleted() && attempt <= size) {
+                attempt++;
+                newPosition = (key.hashCode() + linearColision(attempt));
+            }
+            if (attempt > capacity) {
+                throw new ErrorEncontrado("El hashtable es mas chico");
+            }
+            if (this.contains(key)){
+                throw new ErrorEncontrado("La key ya existe");
+            } else {
+                tableHash[newPosition] = temp;
+                size++;
+            }
+        }
+    }
+
+    private int linearColision(int attempt){
         return attempt;
     }
 
-    public void setTableSize(int size) {
-        tableSize = size;
-        table = new MyHashNode[tableSize];
-    }
-
     @Override
-    public void put(K key, V value) {
-        int position = Math.abs(key.hashCode() % tableSize);
-        MyHashNode<K, V> newNode = new MyHashNode<>(key, value);
+    public boolean contains(K key) {
+        int position = Math.abs(key.hashCode()) % tableHash.length;
 
-        if ((table[position] == null) || table[position].isDeleted()) {
-            table[position] = newNode;
-        } else {
-            int attempt = 1;
-            int newPosition = Math.abs(position + linearCollision(attempt)) % tableSize;
-
-            while (table[newPosition] != null && !table[newPosition].isDeleted() && attempt <= tableSize) {
-                attempt++;
-                newPosition = Math.abs(position + linearCollision(attempt)) % tableSize;
-            }
-
-            if (attempt > tableSize) {
-                throw new RuntimeException("Table is full");
-            }
-
-            table[newPosition] = newNode;
-        }
-    }
-
-    @Override
-    public V get(K key) throws NoExiste {
-        int position = Math.abs(key.hashCode() % tableSize);
-        MyHashNode<K, V> node = table[position];
-        while (node != null) {
-            if (node.getKey().equals(key)) {
-                return node.getValue();
-            }
-            node = node.getNext();
-        }
-        throw new NoExiste("No se encontró");
-    }
-
-    @Override
-    public void remove(K key) throws NoExiste, HashVacio {
-        if (tableSize == 0) {
-            throw new HashVacio("El hash está vacío");
-        }
-        int position = Math.abs(key.hashCode() % tableSize);
-        MyHashNode<K, V> node = table[position];
-
-        if (node != null && node.getKey().equals(key)) {
-            table[position] = null;
-            return;
-        }
-
-        while (node != null) {
-            if (node.getNext() != null && node.getNext().getKey().equals(key)) {
-                node.setNext(node.getNext().getNext());
-                return;
-            }
-            node = node.getNext();
-        }
-
-        throw new NoExiste("No se encontró el elemento con la clave especificada");
-    }
-
-    @Override
-    public boolean containsKey(K key) {
-        int position = Math.abs(key.hashCode() % tableSize);
-
-
-
-        if (table[position] != null && table[position].getKey().equals(key)) {
+        if (tableHash[position] != null && tableHash[position].getKey().equals(key) && !tableHash[position].isDeleted()) {
             return true;
         } else {
-            int attempt = 1;
-            int newPosition = Math.abs(key.hashCode() + linearCollision(attempt)) % tableSize;
-            while (table[newPosition] != null && attempt <= tableSize) {
-                if (table[newPosition].getKey().equals(key)) {
+            int attemp = 1;
+            int newPosition = Math.abs((key.hashCode()%tableHash.length + linearColision(attemp)));
+            while (attemp <= size && tableHash[newPosition] != null && !tableHash[newPosition].isDeleted()) {
+                if (tableHash[newPosition] != null && tableHash[newPosition].getKey().equals(key)) {
                     return true;
                 }
-                attempt++;
-                newPosition = Math.abs(key.hashCode() + linearCollision(attempt)) % tableSize;
+                attemp++;
+                newPosition = Math.abs((key.hashCode()%tableHash.length + linearColision(attemp)));
             }
-        }
-        return false;
-    }
-
-    @Override
-    public void printTable() {
-        for (int i = 0; i < tableSize; i++) {
-            if (table[i] != null && !table[i].isDeleted()) {
-                System.out.println("Position " + i + ": Key = " + table[i].getKey() + ", Value = " + table[i].getValue());
-            } else {
-                System.out.println("Position " + i + ": Empty");
-            }
-        }
-    }
-
-    @Override
-    public int tableSize() {
-        int count = 0;
-        for (int i = 0; i < tableSize; i++) {
-            if (table[i] != null && !table[i].isDeleted()) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        if (tableSize() == 0) {
-            return true;
-        } else {
             return false;
         }
     }
 
     @Override
-    public void clear() {
-        for (int i = 0; i < tableSize; i++) {
-            table[i] = null;
+    public void remove(K key) throws ErrorEncontrado{
+        int position = find(key);
+
+        if (position==0){
+            throw new ErrorEncontrado("El elemento no esta en el hash");
         }
-        tableSize = 0;
+        else {
+            tableHash[position].setIsDeleted(true);
+            size--;
+        }
     }
 
-}
+    private int find (K key){
+        int position = Math.abs(key.hashCode()) % tableHash.length;
 
+        if (tableHash[position] != null && tableHash[position].getKey().equals(key)) {
+            return position;
+        } else {
+            int attemp = 1;
+            int newPosition = Math.abs(key.hashCode()% tableHash.length + linearColision(attemp));
+            while (attemp <= size && tableHash[newPosition] != null && !tableHash[newPosition].isDeleted()) {
+                if (tableHash[newPosition] != null && tableHash[newPosition].getKey().equals(key)) {
+                    return newPosition;
+                }
+                attemp++;
+                newPosition = (key.hashCode() + linearColision(attemp));
+            }
+            return 0;
+        }
+    }
+
+    public V findObject (K key){
+        int position = Math.abs(key.hashCode() % tableHash.length);
+
+        if (tableHash[position] != null && tableHash[position].getKey().equals(key)) {
+            return (V) tableHash[position].getData();
+        } else {
+            int attemp = 1;
+            int newPosition = Math.abs((key.hashCode()%tableHash.length + linearColision(attemp)));
+            while (attemp <= size && tableHash[newPosition] != null && !tableHash[newPosition].isDeleted()) {
+                if (tableHash[newPosition] != null && tableHash[newPosition].getKey().equals(key)) {
+                    return (V) tableHash[newPosition].getData();
+                }
+                attemp++;
+                newPosition = (key.hashCode() + linearColision(attemp));
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public int size () {
+        return size;
+    }
+}
