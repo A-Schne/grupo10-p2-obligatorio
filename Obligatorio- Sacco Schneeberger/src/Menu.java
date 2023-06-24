@@ -1,4 +1,5 @@
 import CSVResources.CSVLoader;
+import Consultas.ConsultaAmountOfTweets;
 import Consultas.ConsultaHashtagMostUsed;
 import Consultas.ConsultaMostMentioned;
 import Consultas.ConsultaMostTweetsUser;
@@ -26,8 +27,10 @@ public class Menu {
                     break;
                 case 3:
                     terceraConsulta();
+                    break;
                 case 4:
                     cuartaConsulta();
+                    break;
                 default:
                     System.out.println("Numero ingresado invalido, porfavor pruebe de nuevo.");
 
@@ -84,10 +87,19 @@ public class Menu {
         ConsultaMostTweetsUser segundaConsulta = new ConsultaMostTweetsUser();
         CSVLoader loader = new CSVLoader(segundaConsulta);
         loader.readCSV();
-        segundaConsulta.prueba();
+        segundaConsulta.hacerSegundaConsulta();
     }
 
-    public static void terceraConsulta(){
+    public static void terceraConsulta() throws Exception {
+
+        Scanner scannerFecha = new Scanner(System.in);
+        System.out.println("¿En que dia quiere buscar? Escribalo de la forma yyyy-mm-dd");
+        String date = scannerFecha.nextLine();
+
+        ConsultaAmountOfTweets terceraConsulta = new ConsultaAmountOfTweets(date);
+        CSVLoader loader = new CSVLoader(terceraConsulta);
+        loader.readCSV();
+        terceraConsulta.hacerTerceraConsulta();
 
     }
 

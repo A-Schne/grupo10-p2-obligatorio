@@ -65,7 +65,7 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
         }
 
     }
-    public void prueba() throws NoExiste {
+    public void hacerSegundaConsulta() throws NoExiste {
         orderUsers();
         System.out.println("Los usuarios con mas tweets son: ");
         for(int i=0; i<15; i++){
