@@ -16,6 +16,7 @@ public class ConsultaMostMentioned implements CSVTweetReader {
     private Lista<String[]> textDate;
     private MyTreeInt<Integer, Driver> pilotosOrdenados;
     private Lista<Driver> driversOrdenadosResult;
+
     public ConsultaMostMentioned(Lista<Driver> drivers, String inputDate) {
         this.drivers = drivers;
         this.textDate = new LinkedList<>();
@@ -51,42 +52,43 @@ public class ConsultaMostMentioned implements CSVTweetReader {
         String date = record.get("date");
 
         //Agarra unicamente el año y mes
-        date = date.substring(0,7);
+        date = date.substring(0, 7);
 
-        if(date.equals(this.inputDate)){
+        if (date.equals(this.inputDate)) {
 
             String text = record.get("text");
 
-            for(int i=0; i<drivers.size(); i++){
+            for (int i = 0; i < drivers.size(); i++) {
 
-                if(/*text.contains(drivers.get(i).getName()) ||*/ text.contains(drivers.get(i).getSurname())){
-                    drivers.get(i).setMentions(drivers.get(i).getMentions()+1);
+                if (/*text.contains(drivers.get(i).getName()) ||*/ text.contains(drivers.get(i).getSurname())) {
+                    drivers.get(i).setMentions(drivers.get(i).getMentions() + 1);
                 }
             }
         }
     }
 
-
-
-    public void get10Drivers(Nodo<Integer, Driver> driverNode) throws Exception {
-
-        if(driverNode.getRightChild()!=null){
-            get10Drivers(driverNode.getRightChild());
+    public void orderDriverByMentions(Lista<Driver> pilotos) throws Exception {
+        Driver dummyDriver = new Driver(null, null, null);
+        //Agrego un nodo sin menciones asi todos los elementos que meto tienen mas menciones y van hacia la derecha
+        pilotosOrdenados.insert(dummyDriver.getMentions(), dummyDriver);
+        for (int i = 0; i < pilotos.size(); i++) {
+            pilotosOrdenados.insert(pilotos.get(i).getMentions(), pilotos.get(i));
         }
-
-        else{
-            driversOrdenadosResult.add(driverNode.getData());
-            pilotosOrdenados.delete(driverNode.getKey());
+        for (int j = 0; j < pilotos.size(); j++) {
+            get10Drivers(pilotosOrdenados.getRoot());
         }
     }
+
+
+
 
     public void hacerPrimeraConsulta() throws Exception {
         orderDriverByMentions(drivers);
         System.out.println("Los 10 pilotos con mas menciones en el mes " + this.inputDate + " son: ");
-        for(int i=0; i<10; i++){
+        for (int i = 0; i < 10; i++) {
             String nombre = driversOrdenadosResult.get(i).getFullname();
             int menciones = driversOrdenadosResult.get(i).getMentions();
-            System.out.println((i+1)+". " + nombre + " con " + menciones + " menciones");
+            System.out.println((i + 1) + ". " + nombre + " con " + menciones + " menciones");
         }
 
     }
