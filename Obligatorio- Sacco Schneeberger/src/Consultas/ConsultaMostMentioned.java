@@ -66,22 +66,7 @@ public class ConsultaMostMentioned implements CSVTweetReader {
         }
     }
 
-    public void orderDriverByMentions(Lista<Driver> pilotos) throws Exception {
 
-        Driver dummyDriver = new Driver(null,null,null);
-
-        //Agrego un nodo sin menciones asi todos los elementos que meto tienen mas menciones y van hacia la derecha
-        pilotosOrdenados.insert(dummyDriver.getMentions(), dummyDriver);
-
-        for(int i=0; i<pilotos.size(); i++){
-            pilotosOrdenados.insert(pilotos.get(i).getMentions(), pilotos.get(i));
-        }
-
-        for(int j=0; j< pilotos.size(); j++){
-            get10Drivers(pilotosOrdenados.getRoot());
-        }
-
-    }
 
     public void get10Drivers(Nodo<Integer, Driver> driverNode) throws Exception {
 
