@@ -47,6 +47,21 @@ public class ConsultaMostMentioned implements CSVTweetReader {
 
     //Notar que execute no se llama desde el menu
 
+    @Override
+    public void execute(CSVRecord record) throws Exception {
+        String date = record.get("date");
+        //Agarra unicamente el año y mes
+        date = date.substring(0, 7);
+        if (date.equals(this.inputDate)) {
+            String text = record.get("text");
+            for (int i = 0; i < drivers.size(); i++) {
+                if (text.contains(drivers.get(i).getSurname())) {
+                    drivers.get(i).setMentions(drivers.get(i).getMentions() + 1);
+                }
+            }
+        }
+    }
+
 
     public void orderDriverByMentions(Lista<Driver> pilotos) throws Exception {
         Driver dummyDriver = new Driver(null, null, null);
