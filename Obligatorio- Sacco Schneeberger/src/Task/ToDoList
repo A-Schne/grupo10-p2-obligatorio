@@ -30,3 +30,14 @@ Para hacer segunda consulta: Crear una lista de usuarios. De la lectura del CSV,
 Para hacer tercera consulta: Crear una lista de hashtag, quizas linkedlist. De la lectura del CSV, sacar los hashtags. Cada vez que aparecen, ver si estan en mi lista de hashtags. Si
                              estan, añadirles 1 a su cantiad de veces usado. Si no esta, crearlo, añadirlo a la lista y sumarles 1 a su cantidad de veces usado. Luego ordenar
                              en base a la cantidad de veces usado, usando un arbol.
+Para hacer cuarta consulta:  Primero conseguimos todos los tweets de esa fecha, y guardamos los hashtags a través de la lectura del CSV. Despues creamos una lista con los hashtags que aparecieron,
+                             y si aparece “f1”, se omite. En caso de que un hashtag ya haya aparecido se incrementa un contador (registra cuantas veces apareció), y si no apareció aún,
+                             se agrega a la lista y se le asigna 1 al valor de su contador. Por último usamos un arbol para ver cual fue el más usado.
+
+Para hacer quinta consulta:  Obtenemos los nombres de usuario y los favoritos. Si el usuario se encuentra dentro del hash ‘users’, actualizamos un contador que marca cuantos favoritos tiene un usuario;
+                             si no se encuentra, creamos una nueva instancia de la clase User con su contador de favoritos y lo agregamos al hash ‘users’. Por último, ordenamos el hash,
+                             insertando los usuarios en un arbol binario en el que la clave de ordenamiento es su cantidad de favoritos. Después se encuentra quién es el que tiene mas favoritos.
+
+Para la última consulta:     Nos quedamos con el texto del tweet (ignorando las mayúsculas/minúsculas) y lo comparamos a lo que se está buscando. Si se encuentra la palabra o frase que buscamos,
+                             se agrega uno al contador (registra cuantas veces aparecio esa palabra).
+
