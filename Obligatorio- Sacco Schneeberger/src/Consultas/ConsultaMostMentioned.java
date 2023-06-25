@@ -79,19 +79,15 @@ public class ConsultaMostMentioned implements CSVTweetReader {
         }
     }
 
-
-
-
-    public void hacerPrimeraConsulta() throws Exception {
-        orderDriverByMentions(drivers);
-        System.out.println("Los 10 pilotos con mas menciones en el mes " + this.inputDate + " son: ");
-        for (int i = 0; i < 10; i++) {
-            String nombre = driversOrdenadosResult.get(i).getFullname();
-            int menciones = driversOrdenadosResult.get(i).getMentions();
-            System.out.println((i + 1) + ". " + nombre + " con " + menciones + " menciones");
+    public void get10Drivers(Nodo<Integer, Driver> driverNode) throws Exception {
+        if (driverNode.getRightChild() != null) {
+            get10Drivers(driverNode.getRightChild());
+        } else {
+            driversOrdenadosResult.add(driverNode.getData());
+            pilotosOrdenados.delete(driverNode.getKey());
         }
-
     }
+
 
 
 }
