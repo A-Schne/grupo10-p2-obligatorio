@@ -34,8 +34,7 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
         if(users.contains(user_name)){
             User tempUser = users.findObject(user_name);
             tempUser.setNumberOfTweets(tempUser.getNumberOfTweets()+1);
-        }
-        else{
+        }else{
             User nuevoUser = new User(user_name);
             if(isVerifiedBool)
                 nuevoUser.setVerified(true);
@@ -53,13 +52,9 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
             User tempUser = users.findObject(usernames.get(i));
             usersTree.insert(tempUser.getNumberOfTweets(), tempUser);
         }
-
-
         for(int i=0; i<usernames.size(); i++){
             getMostTweets(usersTree.getRoot());
         }
-
-
     }
 
 
@@ -71,9 +66,8 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
             userFinal.add(nodoUser.getData());
             usersTree.delete(nodoUser.getKey());
         }
-
-
     }
+
     public void hacerSegundaConsulta() throws NoExiste {
         orderUsers();
         System.out.println("Los usuarios con mas tweets son: ");
