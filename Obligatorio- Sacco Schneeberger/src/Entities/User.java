@@ -3,25 +3,15 @@ package Entities;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.LinkedList;
 
 public class User {
-    private long id;
     private String name;
     private int numberOfTweets;
     private int totalNumOfFavs;
     private boolean isVerified;
 
     public User(String name) {
-        this.id = id;
         this.name = name;
         this.numberOfTweets = 0;
         this.isVerified = false;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {

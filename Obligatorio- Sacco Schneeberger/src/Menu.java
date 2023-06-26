@@ -13,7 +13,7 @@ public class Menu {
         int menu;
         do {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("\n\nElija que consulta hacer:\n1.Listar los 10 pilotos activos mas mencionados en cierto mes \n2.Top 15 usuarios con mas tweets \n3.Cantidad de hashtags distintos para un dia dado \n4.Hashtag mas usado en un dia \n5.Top 7 cuentas con mas favoritos \n6.Cantidad de tweets con una palabra\n\nRespuesta: ");
+            System.out.println("\n\nElija que consulta hacer:\n1.Listar los 10 pilotos activos mas mencionados en cierto mes \n2.Top 15 usuarios con mas tweets \n3.Cantidad de hashtags distintos para un dia dado \n4.Hashtag mas usado en un dia \n5.Top 7 cuentas con mas favoritos \n6.Cantidad de tweets con una palabra\n7.Terminar consultas\n\nRespuesta: ");
             menu = scanner.nextInt();
             switch (menu) {
 
@@ -34,6 +34,8 @@ public class Menu {
                     break;
                 case 6:
                     sextaConsulta();
+                    break;
+                case 7:
                     break;
                 default:
                     System.out.println("Numero ingresado invalido, porfavor pruebe de nuevo.");
@@ -89,8 +91,11 @@ public class Menu {
 
         ConsultaMostTweetsUser segundaConsulta = new ConsultaMostTweetsUser();
         CSVLoader loader = new CSVLoader(segundaConsulta);
+        long inicio = System.currentTimeMillis();
         loader.readCSV();
         segundaConsulta.hacerSegundaConsulta();
+        long fin = System.currentTimeMillis();
+        System.out.println(fin-inicio + " milisegundos");
     }
 
     public static void terceraConsulta() throws Exception {
@@ -101,9 +106,12 @@ public class Menu {
 
         ConsultaAmountOfTweets terceraConsulta = new ConsultaAmountOfTweets(date);
         CSVLoader loader = new CSVLoader(terceraConsulta);
+
+        long inicio = System.currentTimeMillis();
         loader.readCSV();
         terceraConsulta.hacerTerceraConsulta();
-
+        long fin = System.currentTimeMillis();
+        System.out.println(fin-inicio + " milisegundos");
     }
 
     public static void cuartaConsulta() throws Exception {
@@ -114,16 +122,22 @@ public class Menu {
 
         ConsultaHashtagMostUsed cuartaConsulta = new ConsultaHashtagMostUsed(date);
         CSVLoader loader = new CSVLoader(cuartaConsulta);
+        long inicio = System.currentTimeMillis();
         loader.readCSV();
         cuartaConsulta.hacerCuartaConsulta();
+        long fin = System.currentTimeMillis();
+        System.out.println(fin-inicio + " milisegundos");
     }
 
     public static void quintaConsulta() throws Exception {
 
         ConsultaUserWithMostFavs quintaConsulta = new ConsultaUserWithMostFavs();
         CSVLoader loader = new CSVLoader(quintaConsulta);
+        long inicio = System.currentTimeMillis();
         loader.readCSV();
         quintaConsulta.hacerQuintaConsulta();
+        long fin = System.currentTimeMillis();
+        System.out.println(fin-inicio + " milisegundos");
     }
 
     public static void sextaConsulta() throws Exception {
@@ -133,8 +147,13 @@ public class Menu {
 
         ConsultaTextInTweets sextaConsulta = new ConsultaTextInTweets(texto);
         CSVLoader loader = new CSVLoader(sextaConsulta);
+
+        long inicio = System.currentTimeMillis();
         loader.readCSV();
         sextaConsulta.hacerSextaConsulta();
+
+        long fin = System.currentTimeMillis();
+        System.out.println(fin-inicio + " milisegundos");
     }
 
 }

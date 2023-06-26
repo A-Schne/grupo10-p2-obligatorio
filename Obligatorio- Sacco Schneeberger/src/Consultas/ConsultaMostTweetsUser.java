@@ -8,6 +8,7 @@ import uy.edu.um.prog2.adt.TADs.BST.Entities.MyTreeInt;
 import uy.edu.um.prog2.adt.TADs.BST.Entities.Nodo;
 import uy.edu.um.prog2.adt.TADs.Hash.Entities.MyHash;
 import uy.edu.um.prog2.adt.TADs.Hash.Entities.MyHashImpl;
+import uy.edu.um.prog2.adt.TADs.Hash.Exceptions.ErrorEncontrado;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Entities.LinkedList;
 import uy.edu.um.prog2.adt.TADs.Linked_List.Exceptions.NoExiste;
 
@@ -17,16 +18,16 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
     private LinkedList<String> usernames;
     private MyTreeInt<Integer, User> usersTree;
     private LinkedList<User> userFinal;
-
+    private MyHash<Integer, Integer> valores;
     public ConsultaMostTweetsUser() {
         this.users = new MyHashImpl<>(600000);
         this.usernames = new LinkedList<>();
         this.usersTree = new MyTreeImpl<>();
         this.userFinal = new LinkedList<>();
+        this.valores = new MyHashImpl<>(600000);
     }
     @Override
     public void execute(CSVRecord record) throws Exception {
-
 
         String user_name = record.get("user_name");
         String isVerified = record.get("user_verified").toLowerCase();
@@ -45,12 +46,17 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
     }
 
 
-    public void orderUsers() throws NoExiste {
+    public void orderUsers() throws NoExiste, ErrorEncontrado {
         User dummyUser = new User("prueba");
         usersTree.insert(1, dummyUser);
+        valores.put(0, 0);
         for(int i=0; i< usernames.size(); i++){
-            User tempUser = users.findObject(usernames.get(i));
-            usersTree.insert(tempUser.getNumberOfTweets(), tempUser);
+            User tempUser = users.findObject(usernames.get(i));             //Para usar el CSV test, se eliminan las lineas 54 a 58
+            if(!(valores.contains(tempUser.getNumberOfTweets()))){
+                usersTree.insert(tempUser.getNumberOfTweets(), tempUser);
+                valores.put(tempUser.getNumberOfTweets(), 1);
+            }
+            //usersTree.insert(tempUser.getNumberOfTweets(), tempUser);     En caso de eliminar las lineas anteriores, descomentar esto
         }
         for(int i=0; i<usernames.size(); i++){
             getMostTweets(usersTree.getRoot());
@@ -68,7 +74,7 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
         }
     }
 
-    public void hacerSegundaConsulta() throws NoExiste {
+    public void hacerSegundaConsulta() throws NoExiste, ErrorEncontrado {
         orderUsers();
         System.out.println("Los usuarios con mas tweets son: ");
         for(int i=0; i<15; i++){

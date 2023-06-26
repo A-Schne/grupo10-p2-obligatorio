@@ -22,24 +22,26 @@ public class ConsultaAmountOfTweets implements CSVTweetReader {
     public void execute(CSVRecord record) throws Exception {
 
         String date = record.get("date");
-        date = date.substring(0, 10);
+        if(date.length()==19) {
+            date = date.substring(0, 10);
 
-        if (date.equals(inputDate)) {
+            if (date.equals(inputDate)) {
 
-            String hashtagSinSeparar = record.get("hashtags").replace("[", "");
-            hashtagSinSeparar = hashtagSinSeparar.replace("]", "");
-            hashtagSinSeparar = hashtagSinSeparar.replace(",", "");
+                String hashtagSinSeparar = record.get("hashtags").replace("[", "");
+                hashtagSinSeparar = hashtagSinSeparar.replace("]", "");
+                hashtagSinSeparar = hashtagSinSeparar.replace(",", "");
 
-            String[] hashtagsSeparados = hashtagSinSeparar.split(" ");
+                String[] hashtagsSeparados = hashtagSinSeparar.split(" ");
 
-            for (String hashtag : hashtagsSeparados) {
-                hashtag = hashtag.toLowerCase();
-                if (hashtags.contains(hashtag)) {
-                    continue;
-                } else {
-                    Hashtag newHashtag = new Hashtag(hashtag);
-                    hashtags.put(hashtag, newHashtag);
-                    amountOfTweets++;
+                for (String hashtag : hashtagsSeparados) {
+                    hashtag = hashtag.toLowerCase();
+                    if (hashtags.contains(hashtag)) {
+                        continue;
+                    } else {
+                        Hashtag newHashtag = new Hashtag(hashtag);
+                        hashtags.put(hashtag, newHashtag);
+                        amountOfTweets++;
+                    }
                 }
             }
         }

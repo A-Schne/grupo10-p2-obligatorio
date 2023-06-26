@@ -1,6 +1,5 @@
 package CSVResources;
 
-import Entities.Tweet;
 import Entities.User;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -20,7 +19,7 @@ public class CSVLoader{
 
     public void readCSV() throws Exception {
 
-        String csvFile = "src/CSVResources/f1_dataset_test.csv";
+        String csvFile = "src/CSVResources/f1_dataset.csv";
 
         String[] headers = {"user_num", "user_name", "user_location", "user_description", "user_created",
                 "user_followers", "user_friends", "user_favourites", "user_verified",
