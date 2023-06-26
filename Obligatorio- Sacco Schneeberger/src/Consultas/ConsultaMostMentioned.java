@@ -13,13 +13,11 @@ public class ConsultaMostMentioned implements CSVTweetReader {
 
     private Lista<Driver> drivers;
     private String inputDate;
-    private Lista<String[]> textDate;
     private MyTreeInt<Integer, Driver> pilotosOrdenados;
     private Lista<Driver> driversOrdenadosResult;
 
     public ConsultaMostMentioned(Lista<Driver> drivers, String inputDate) {
         this.drivers = drivers;
-        this.textDate = new LinkedList<>();
         this.inputDate = inputDate;
         this.driversOrdenadosResult = new LinkedList<>();
         this.pilotosOrdenados = new MyTreeImpl<>();
@@ -31,10 +29,6 @@ public class ConsultaMostMentioned implements CSVTweetReader {
 
     public String getInputDate() {
         return inputDate;
-    }
-
-    public Lista<String[]> getTextDate() {
-        return textDate;
     }
 
     public Lista<Driver> getDriversOrdenadosResult() {

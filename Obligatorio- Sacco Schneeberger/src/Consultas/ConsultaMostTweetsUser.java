@@ -19,7 +19,7 @@ public class ConsultaMostTweetsUser implements CSVTweetReader {
     private LinkedList<User> userFinal;
 
     public ConsultaMostTweetsUser() {
-        this.users = new MyHashImpl<>(250000);
+        this.users = new MyHashImpl<>(600000);
         this.usernames = new LinkedList<>();
         this.usersTree = new MyTreeImpl<>();
         this.userFinal = new LinkedList<>();

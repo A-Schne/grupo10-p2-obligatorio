@@ -21,7 +21,7 @@ public class ConsultaUserWithMostFavs implements CSVTweetReader {
     private MyTreeInt<Integer, User> favsTree;
 
     public ConsultaUserWithMostFavs() {
-        this.users = new MyHashImpl<>(250000);
+        this.users = new MyHashImpl<>(600000);
         this.topUsers = new LinkedList<>();
         this.usernames = new LinkedList<>();
         this.favsTree = new MyTreeImpl<>();
